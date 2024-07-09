@@ -3,12 +3,16 @@ import React, { useState } from "react";
 const Calculator = () => {
   const [firstNo, setFirstNo] = useState(0);
   const [secondNo, setSecondNo] = useState(0);
+  const [op, setOp] = useState("");
   const [result, setResult] = useState(0);
   const handleFirstChange = (e) => {
     setFirstNo(e.target.value);
   };
   const handleSecondChange = (e) => {
     setSecondNo(e.target.value);
+  };
+  const handleOpChange = (e) => {
+    setOp(e.target.value);
   };
   const handleAdd = () => {
     setResult(parseInt(firstNo) + parseInt(secondNo));
@@ -22,6 +26,18 @@ const Calculator = () => {
   };
   const handleDivide = () => {
     setResult(parseInt(firstNo) / parseInt(secondNo));
+  };
+
+  const handleCalculate = () => {
+    if (op === "+") {
+      setResult(parseInt(firstNo) + parseInt(secondNo));
+    } else if (op === "-") {
+      setResult(parseInt(firstNo) - parseInt(secondNo));
+    } else if (op === "*") {
+      setResult(parseInt(firstNo) * parseInt(secondNo));
+    } else if (op === "/") {
+      setResult(parseInt(firstNo) / parseInt(secondNo));
+    }
   };
   return (
     <>
@@ -41,11 +57,28 @@ const Calculator = () => {
             <label className="font-bold text-xl">Enter second number:</label>
             <input
               type="number"
-              className="border border-black h-8 rounded-sm text-xl p-2"
+              className="border border-black h-8 rounded-sm text-xl p-2 appearance-none"
               value={secondNo}
               onChange={handleSecondChange}
             />
           </div>
+          <div className="flex flex-col">
+            <label className="font-bold text-xl">Enter Operator:</label>
+            <input
+              type="text"
+              className="border border-black h-8 rounded-sm text-xl p-2"
+              value={op}
+              onChange={handleOpChange}
+            />
+          </div>
+        </div>
+        <div className="mt-2">
+          <button
+            className="p-2 bg-blue-500 text-white font-bold w-20 rounded-md"
+            onClick={handleCalculate}
+          >
+            Calculate
+          </button>
         </div>
         <div className="flex gap-10">
           <div className="mt-2">
